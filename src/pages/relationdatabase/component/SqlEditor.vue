@@ -28,17 +28,6 @@ const handleReady = (payload: any) => {
   view.value = payload.view;
 };
 
-// Status is available at all times via Codemirror EditorView
-const getCodemirrorStates = () => {
-  const state = view.value.state;
-  const ranges = state.selection.ranges;
-  const selected = ranges.reduce((r: any, range: any) => r + range.to - range.from, 0);
-  const cursor = ranges[0].anchor;
-  const length = state.doc.length;
-  const lines = state.doc.lines;
-  // more state info ...
-  // return ...
-};
 </script>
 
 <template>
@@ -92,6 +81,6 @@ const getCodemirrorStates = () => {
 }
 .codemirror {
   font-family: Arial, monospace;
-  font-size: 18px;
+  font-size: 19px;
 }
 </style>

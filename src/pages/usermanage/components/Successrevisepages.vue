@@ -5,7 +5,7 @@ const emit = defineEmits<{
   (e: 'change-step', idx: number): void;
 }>();
 
-const router = useRouter();
+//const router = useRouter();
 
 const handlePre = () => {
   emit('change-step', 0);
@@ -14,10 +14,10 @@ const handlePre = () => {
 
 <template>
   <Card class="background">
-    <Result status="success" title="用户创建成功" class="Result">
+    <Result status="success" title="用户修改成功" class="Result">
       <template #extra>
         <Space :size="16">
-          <Button type="primary" @click="handlePre">再次创建</Button>
+          <Button type="primary" @click="handlePre">再次修改</Button>
         </Space>
       </template>
     </Result>

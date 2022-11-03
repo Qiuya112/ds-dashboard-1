@@ -26,7 +26,9 @@ import { UPDATE_USER_URL } from '@/api/url';
 import { UserFormlist } from '../userData';
 
 const formRef = ref<FormInstance>();
-
+const emit = defineEmits<{
+  (e: 'change-step', idx: number): void;
+}>();
 //...它用于把一个数组转化为用逗号分隔的参数序列
 const ReFormData = reactive<UserFormlist>({
   type: 1,
@@ -48,6 +50,7 @@ const handleSubmitRevise = async () => {
     },
   }).then(() => {
     formRef.value?.resetFields();
+    emit('change-step', 1);
   });
 };
 </script>

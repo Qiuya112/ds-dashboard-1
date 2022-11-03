@@ -24,7 +24,6 @@ const connect: RouteRecordRaw = {
         locale: '权限列表',
       },
     },
-   
   ],
   meta: {
     requireAuth: true,

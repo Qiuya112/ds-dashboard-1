@@ -23,16 +23,27 @@ const requests: MockMethod[] = [
           .map(() => {
             return {
               uuid: '@uuid',
+              host: Random.ip(),
+              port: Random.integer(1000, 50000),
               type: Random.pick([1, 2, 3]),
               username: Random.name(),
-              host: Random.ip(),
-              password: Random.integer(100000, 5000000),
+              permissions: {
+                MySQL: Array(14)
+                  .fill(1)
+                  .map(() => Random.name()),
+                DM: Array(6)
+                  .fill(1)
+                  .map(() => Random.name()),
+                KingBase: Array(4)
+                  .fill(1)
+                  .map(() => Random.name()),
+              },
             };
           }),
       });
     },
   },
-  
+
   //修改用户
   {
     url: '/api/v1/sql/user/update',

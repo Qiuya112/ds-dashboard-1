@@ -24,7 +24,6 @@ const connect: RouteRecordRaw = {
         locale: '数据库操作',
       },
     },
-    
   ],
   meta: {
     requireAuth: true,

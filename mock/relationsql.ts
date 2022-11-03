@@ -8,19 +8,15 @@ const requests: MockMethod[] = [
     method: 'get',
     response: () => {
       return successResp({
-        data: Array(10)
+        names: Array(15)
           .fill(1)
-          .map(() => {
-            return {
-              columnList: {
-                columnName: Random.name(),
-                columnTypeName: Random.pick(['int', 'string']),
-              }, //长度为2的数组
-              data: {
-                'data|2': [],
-              },
-            };
-          }),
+          .map(() => Random.name()),
+        tablenames: Array(15)
+        .fill(1)
+        .map(() => Random.name()),
+        viewnames: Array(15)
+        .fill(1)
+        .map(() => Random.name()),
       });
     },
   },

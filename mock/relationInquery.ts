@@ -5,20 +5,23 @@ import { successResp } from './_utils';
 const requests: MockMethod[] = [
   {
     url: '/api/v1/table/query',
-    method: 'get',
+    method: 'post',
     response: () => {
       return successResp({
-        data: Array(10)
+        columnList: Array(10)
           .fill(1)
           .map(() => {
             return {
-              columnList: {
-                columnName: Random.name(),
-                columnTypeName: Random.pick(['int', 'string']),
-              }, //长度为2的数组
-              data: {
-                'data|2': [],
-              },
+              columnName: Random.string(),
+              columnNameType: Random.pick(['int', 'sting']),
+            };
+          }),
+        data: Array(12)
+          .fill(1)
+          .map(() => {
+            return {
+              column: Random.string(),
+              columnType: Random.pick(['int', 'sting']),
             };
           }),
       });

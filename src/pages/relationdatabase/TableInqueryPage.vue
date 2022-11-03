@@ -1,35 +1,44 @@
 <script lang="ts" setup>
 import {
   Card,
-  Form,
-  FormItem,
-  Button,
   Row,
   Col,
-  Select,
-  Option,
+  Form,
+  FormItem,
   Input,
+  Select,
+  Space,
+  Option,
   Divider,
   Table,
+  TableColumn,
+  Button,
+  Popconfirm,
+  Modal,
 } from '@arco-design/web-vue';
+import { reactive, ref } from 'vue';
 import PageContainer from '@/components/PageContainer.vue';
-import { reactive } from 'vue';
-//上传数据
+
+import { useAxios } from '@vueuse/integrations/useAxios';
+import { instance, ResponseWrap } from '@/api';
+import { InQUERY_DATABASE_URL } from '@/api/url';
+import { InqueryParams } from '@/api/types';
+
 const form = reactive({
-  type: '',
+  type: '1',
   table: '',
   name: '',
   columnList: [{ column: '' }],
-  whereList: [{ column: '', columnType: '', value: '', queryType: '' }],
+  whereList: [{ column: '', columnType: 'int', value: '', queryType: '>' }],
   groupByList: [{ column: '' }],
-  orderByList: [{ type: '', column: '' }],
+  orderByList: [{ type: 'ASC', column: '' }],
 });
+
 const handleAddInquery = () => {
   form.columnList.push({
     column: '',
   });
 };
-
 const handleAddGroup = () => {
   form.groupByList.push({
     column: '',
@@ -61,14 +70,27 @@ const handleDeleteGroup = (index: number) => {
 const handleDeleteOrder = (index: number) => {
   form.orderByList.splice(index, 1);
 };
-//提交
-const handlesubmit = () => {};
+
+//data为请求返回的数据,重命名为res--自定义操作
+const { data } = useAxios<ResponseWrap<InqueryParams>>(
+  InQUERY_DATABASE_URL,
+  { method: 'POST' },
+  instance,
+);
+
+//进行数据的检测,说明返回值中的data数据是否存在
+const tabledata = computed(() => {
+  return data.value?.data?.columnList;
+});
+
+
 </script>
+
 <template>
   <PageContainer>
     <Card>
       <template #title> 单表数据库查询 </template>
-      <Form :model="form" @submit="handlesubmit" :style="{ width: '75%' }">
+      <Form :model="form" :style="{ width: '75%' }">
         <FormItem
           field="type"
           label="数据库类型"
@@ -273,19 +295,14 @@ const handlesubmit = () => {};
           <Button html-type="submit" type="primary">提交</Button>
         </FormItem>
       </Form>
-
-      <Divider />
-      <Table >
+      {{form}}
+      <Divder />
+      <Table row-key="uuid" :data="tabledata">
         <template #columns>
-          <TableColumn title="ip" data-index="ip" />
-          <TableColumn title="name" data-index="name" />
-          <TableColumn title="password" data-index="password" />
-          <TableColumn title="port" data-index="port" />
-          <TableColumn title="type" data-index="type" />
+          <TableColumn title="列表" data-index="columnName" />
+          <TableColumn title="列表类型" data-index="columnNameType" />
         </template>
       </Table>
     </Card>
   </PageContainer>
 </template>
-
-<style scoped lang="less"></style>

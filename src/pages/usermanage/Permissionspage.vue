@@ -22,17 +22,6 @@ import { FormInstance } from '@arco-design/web-vue/es/form';
 import { useAxios } from '@vueuse/integrations/useAxios';
 import { instance } from '@/api';
 
-import {GRANT_USER_URL,REVOKE_USER_URL} from '@/api/url';
-//权限授权
-const { execute } = useAxios(GRANT_USER_URL, { method: 'POST' }, instance, {
-  immediate: false,
-});
-
-//权限撤销
-const { execute:revokeexcute} = useAxios(REVOKE_USER_URL, { method: 'POST' }, instance, {
-  immediate: false,
-});
-
 </script>
 <template>
   <PageContainer>
